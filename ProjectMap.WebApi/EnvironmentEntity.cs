@@ -1,18 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
-namespace ProjectMap.WebApi;
+﻿//using System.ComponentModel.DataAnnotations;
+//namespace ProjectMap.WebApi;
 
-public class EnvironmentEntity
-{
-    [Required]
-    public int Id { get; set; }
+//public class EnvironmentEntity
+//{
+//    public const int MAX_NUMBER_OF_USER_ENVIRONMENTS = 5;
 
-    [Required]
-    public string Name { get; set; }
+//    public Guid Id { get; set; }
 
-    [Range(0, 75)]
-    public float MaxLength { get; set; }
+//    [Required]
+//    [MinLength(1)]
+//    [MaxLength(25)]
+//    public string? Name { get; set; }
 
-    [Range(0, 75)]
-    public float MaxHeight { get; set; }
-}
+//    public string? OwnerUserId { get; set; }
+
+//    [Range(20, 200)]
+//    public float MaxLength { get; set; } = 20;
+
+//    [Range(10, 100)]
+//    public float MaxHeight { get; set; } = 10;
+
+//    public bool IsValidPosition(float positionX, float positionY)
+//    {
+//        return positionX <= MaxLength && positionY <= MaxHeight;
+//    }
+//}
 

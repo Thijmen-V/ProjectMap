@@ -1,13 +1,16 @@
-﻿using ProjectMap.WebApi;
+﻿//using ProjectMap.WebApi;
 
-namespace ProjectMap.WebApi
-{
-    public interface IEnvironmentRepository
-    {
-        IEnumerable<EnvironmentEntity> GetAll();
-        EnvironmentEntity? GetByName(string name);
-        void Add(EnvironmentEntity environment);
-        void Update(string name, EnvironmentEntity updatedEnvironment);
-        void Delete(string name);
-    }
-}
+//namespace ProjectMap.WebApi
+//{
+//    public interface IEnvironmentRepository
+//    {
+//        IEnumerable<EnvironmentEntity> GetAll();
+//        EnvironmentEntity? GetByName(string name);
+
+//        //void Add(EnvironmentEntity environment);
+//        void Insert(string name);
+
+//        void Update(string name, EnvironmentEntity updatedEnvironment);
+//        void DeleteAsync(Guid id);
+//    }
+//}
