@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="EnvironmentEntity.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Avans.Identity.DapperOrm" Version="1.0.3" />
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.2" />
