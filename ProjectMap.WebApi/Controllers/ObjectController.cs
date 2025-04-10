@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc;
 using ProjectMap.WebApi.Models;
 using ProjectMap.WebApi.Repositories;
 
 namespace ProjectMap.WebApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+//[Route("api/[controller]")]
+[Route("environments/{environmentId}/object")]
 public class ObjectController : ControllerBase
 {
     private readonly IObjectRepository _repository;
@@ -27,10 +29,11 @@ public class ObjectController : ControllerBase
 
 
     [HttpGet(Name = "GetObjects")]
-    public async Task<IEnumerable<Object2D>> Get([FromQuery] string EnvironmentId)
+    //public async Task<IEnumerable<Object2D>> Get([FromQuery] string EnvironmentId)
+    public async Task<IEnumerable<Object2D>> Get(Guid environmentId)
     {
 
-        return await _repository.GetByEnvironmentId(EnvironmentId);
+        return await _repository.GetByEnvironmentId(environmentId.ToString());
 
     }
 
@@ -46,7 +49,8 @@ public class ObjectController : ControllerBase
     }
 
     [HttpPost(Name = "AddObject")]
-    public async Task<ActionResult<Object2D>> Post([FromBody] Object2D object2D)
+    //public async Task<ActionResult<Object2D>> Post([FromBody] Object2D object2D)
+    public async Task<ActionResult<Object2D>> Post(Guid environmentId, [FromBody] Object2D object2D)
     {
         object2D.Id = Guid.NewGuid();
         await _repository.Add(object2D);

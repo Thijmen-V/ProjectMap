@@ -8,7 +8,7 @@ using ProjectMap.WebApi.Repositories;
 namespace ProjectMap.WebApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("environments")]
 public class EnvironmentController : ControllerBase
 {
 
