@@ -61,9 +61,9 @@ public class EnvironmentController : ControllerBase
     public async Task<IActionResult> Delete(string name)
     {
         var environment = await _environmentRepository.GetByName(name);
-        if (environment == null)
+        if (environment == null || !environment.Any())
         {
-            return NotFound(new { message = "Environment not found" });
+            return NotFound(new Dictionary<string, string> { { "message", "Environment not found" } });
         }
         await _environmentRepository.DeleteAsync(name);
         return NoContent();
