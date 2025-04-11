@@ -90,12 +90,45 @@ namespace ProjectMap.WebApi.Repositories
             }
         }
 
+        //public async Task DeleteAsync(string name)
+        //{
+        //    using (var sqlConnection = new SqlConnection(_sqlConnectionString))
+        //    {
+        //        var query = "DELETE FROM [Environment2D] WHERE Name = @Name";
+        //        await sqlConnection.ExecuteAsync(query, new { Name = name });
+        //    }
+        //}
+
+        //Nieuwe delete functie waarij alle objecten (childeren) van de environment (parent) ook worden verwijderd
         public async Task DeleteAsync(string name)
         {
             using (var sqlConnection = new SqlConnection(_sqlConnectionString))
             {
-                var query = "DELETE FROM [Environment2D] WHERE Name = @Name";
-                await sqlConnection.ExecuteAsync(query, new { Name = name });
+                // Begin een transactie om beide deletes in één veilige stap te doen
+                await sqlConnection.OpenAsync();
+                using (var transaction = sqlConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Stap 1: Verwijder alle gekoppelde objecten
+                        var deleteObjectsQuery = @"
+                    DELETE FROM [Object2D] 
+                    WHERE EnvironmentId = (SELECT Id FROM [Environment2D] WHERE Name = @Name)";
+                        await sqlConnection.ExecuteAsync(deleteObjectsQuery, new { Name = name }, transaction);
+
+                        // Stap 2: Verwijder het environment zelf
+                        var deleteEnvironmentQuery = "DELETE FROM [Environment2D] WHERE Name = @Name";
+                        await sqlConnection.ExecuteAsync(deleteEnvironmentQuery, new { Name = name }, transaction);
+
+                        // Commit de transactie
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception("Fout bij verwijderen environment + objecten", ex);
+                    }
+                }
             }
         }
 
