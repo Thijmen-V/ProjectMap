@@ -11,10 +11,10 @@ namespace ProjectMap.WebApi.Models
 
         public Guid? OwnerUserId { get; set; }
 
-        [Range(0, 75)]
+        [Range(20, 200)]
         public float MaxLength { get; set; }
 
-        [Range(0, 75)]
+        [Range(10, 100)]
         public float MaxHeight { get; set; }
     }
 }
